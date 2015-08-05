@@ -1,0 +1,6 @@
+
+docker pull timhaak/plex
+docker stop plex-server
+docker rm plex-server
+$HOME/dokers/plexServer/run
+

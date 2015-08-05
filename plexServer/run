@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+PLEX_DIR="/home/florent/dokers/plexServer"
+
+docker run \
+  --name='plex-server' \
+  -d \
+  --net="host" \
+  -v $PLEX_DIR/config:/config \
+  -v $PLEX_DIR/data:/data \
+  -p 32400:32400 \
+  timhaak/plex
+

@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+DIR_SRC_MOVIES="/var/media/Movies"
+DIR_SRC_SERIES="/var/media/Series"
+
+DATA_DIR="/root/dockers/plexMediaServer/data"
+DATA_MOVIES="/Movies"
+DATA_SERIES="/Series"
+
+mountDir() {
+        if [ ! -e $2 ]; then mkdir -p $2; fi
+	if mount | grep $2 > /dev/null; then
+		echo Umount $2
+        	umount $2
+	fi
+
+	echo Mount $1 to $2
+        mount --bind $1 $2
+}
+
+quit() {
+    echo $1
+    exit 1
+}
+
+if [ ! -e $DIR_SRC_MOVIES ]; then
+    quit 'Error: Missing dir Movies'
+
+else
+
+    if [ ! -e $DIR_SRC_MOVIES ]; then
+        quit 'Error: Missing dir Series'
+
+    else
+	# Mount data
+        mountDir ${DIR_SRC_MOVIES} ${DATA_DIR}${DATA_MOVIES}
+        mountDir ${DIR_SRC_SERIES} ${DATA_DIR}${DATA_SERIES}
+
+        # Start docker...
+        echo 'Start docker...'
+	docker start plex-server
+
+    fi
+
+fi
+
+exit 0
+

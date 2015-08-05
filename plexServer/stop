@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+DATA_DIR="/root/dockers/plexMediaServer/data"
+DATA_MOVIES="/Movies"
+DATA_SERIES="/Series"
+
+check() {
+    if mount | grep $1 > /dev/null; then
+	echo Umount $1
+        umount $1
+    fi
+}
+
+# Docker stop
+docker stop plex-server
+
+# Umount
+check ${DATA_DIR}${DATA_MOVIES}
+check ${DATA_DIR}${DATA_SERIES}
+
+exit 0
+
