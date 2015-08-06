@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PLEX_DIR="/home/florent/dokers/plexServer"
+PLEX_DIR="$HOME/dockers/plexServer"
 
 docker run \
   --name='plex-server' \
